@@ -4,6 +4,8 @@ cotdImage:
   - "[#cotdCreatureTypeSearch#][_cotdDescription:#cotdCreatureTypeDescription#][_title:#cotdTitle#]#_title#: #_cardname##cotdImageHtml#"
   - "[_cardType:aura,equipment][#_cardType.cardSearchByType(5)#][_cardname:#_cardName1#][_cardset:#_cardSet1#][_cotdDescription:#cotdAuraOrEquipmentDescription#][_cotdImgUrl:#_cardImgUrl1#][_title:#cotdTitle#]#_title#: #_cardname##cotdImageHtml#"
   - "[#searchableCardCategory#][#cotdCardCategorySearch#][_cotdDescription:#cotdTextDescription#][_title:#cotdTitle#]#_title#: #_cardname##cotdImageHtml#"
+  - "[#CARDFINDER.randomLegendaryCreature#][_cardname:#_cardName1#][_legendName:#_cardFamiliarName1#][_cotdDescription:#cotdLegendaryCreatureDescription#][_cotdImgUrl:#_cardImgUrl1#][_title:#cotdTitle#]#_title#: #_cardname##cotdImageHtml#"
+
 
 cotdCardTypeSearch: "[_cardType:#cardTypes#][#_cardType.cardSearchByType(5)#][_cardname:#_cardName1#][_cardset:#_cardSet1#][_cardtype:#_cardSomeTypeOrSubtype1#][_cardcolor:#_cardColor1#][_cotdImgUrl:#_cardImgUrl1#][_cardDesc:#_cardType#][_cardDescCategory:#_cardDesc.s#]"
 cotdCreatureTypeSearch: "[_creatureType:#creatureTypes#][#_creatureType.cardSearchByType(5)#][_cardname:#_cardName1#][_cardset:#_cardSet1#][_cardtype:#_cardSomeTypeOrSubtype1#][_cardcolor:#_cardColor1#][_cotdImgUrl:#_cardImgUrl1#][_cardDesc:#_creatureType#][_cardDescCategory:#_cardDesc.s#]"
@@ -13,6 +15,26 @@ cotdParameterizedCardSearch:
   - "#cotdCardTypeSearch#"
   - "#cotdCreatureTypeSearch#"
   - "#cotdCardCategorySearch#"
+
+cotdCardNameWordPair_And:
+  - "[separator:and][#separator.cardSearchTwoParter(1,\\w+ of)#][_pairWord1:#_cardNameFirstPart1#][_pairWord2:#_cardNameSecondPart1#]"
+cotdCardNameWordPair_Or: 
+  - "[separator:or][#separator.cardSearchTwoParter#][_pairWord1:#_cardNameFirstPart1#][_pairWord2:#_cardNameSecondPart1#]"
+cotdCardNameWordPair_OfThe:
+  - "[separator:of the][#separator.cardSearchTwoParter#][_pairWord1:#_cardNameFirstPart1#][_pairWord2:#_cardNameSecondPart1#]"
+
+cotdCardNameWordPair:
+  - "#cotdCardNameWordPair_And#"
+  - "#cotdCardNameWordPair_Or#"
+  - "#cotdCardNameWordPair_OfThe#"
+
+cotdWordPairPonderable:
+  - "[#cotdCardNameWordPair_OfThe#]which came first, the [_italicText:#_pairWord1.lowercase#]#_italicize# or the [_italicText:#_pairWord2.lowercase#]#_italicize#"
+  - "[#cotdCardNameWordPair#]whether \"#_pairWord1.lowercase#\" is more important than \"#_pairWord2.lowercase#\""
+  - "[#cotdCardNameWordPair_And#]if you can ever really separate the [_italicText:#_pairWord1.lowercase#]#_italicize# from the [_italicText:#_pairWord2.lowercase#]#_italicize#"
+  - "[#cotdCardNameWordPair#]whether #_legendSubtype.s.lowercase# are more \"#_pairWord1.lowercase#\" than \"#_pairWord2.lowercase#\""
+  - "[#cotdCardNameWordPair#]whether #creatureTypes.s# prefer \"#_pairWord1.lowercase#\" to \"#_pairWord2.lowercase#\""
+
 
 searchableCardCategory:
   - "[_cardCategory:removal spell][_cardCategoryClass:removal][_toughness:1,2,3,4,5,X][_cardCategorySearchTerm:\"destroy target creature\",\"exile target creature\",\"enchanted creature can't attack\",\"fights target\",\"damage to target creature\",\"sacrifices a creature\",\"/-#_toughness# until\",\"enchanted creature doesn't\"]"
@@ -49,8 +71,12 @@ cotdTextDescription:
   - "If you think this #cardQuality# #_cardDesc# only fits into [_deckType:#_cardColor1#,#deckLimitedArchetype#,#deck#]#_deckType# decks, you may need to reconsider your #format# strategies."
   - "[#cotdCardCategorySearch#]One of the best [_kindOfCard:#_cardRarity1#,#_cardType1#,#_cardDesc#]#_kindOfCard.lowercase.s# in [_italicText:#_cardSet1#]#_italicize# Limited right here. Turns out  [_cardlinkName:#cardAlone#]#_cotdHtmlCardLink# is still one of #_cardColor1#'s #cardSuperlative# [_otherKindOfCard:#cardCategory#,#_cardDesc#]#_otherKindOfCard.s#."
   - "[#cotdCardCategorySearch#]#_cardColorClass1.capitalize#, #cardQuality# #_cardDescCategory# will always be [_position:an unavoidable part of,a necessary evil in,at a premium in,a commodity in,#kindaGood# in]#_position# #popularFormat#, [_authority:Development,Mark Rosewater,Hasbro,the Future-Future League][_rigid:extremely rigid,militant,inconsistent,incomprehensible,ludicrous,unreasonably firm][_qualifier:unfortunately,like it or not,thanks to #_authority#'s #_rigid# stance on #_cardDescCategory#,regardless of the cost,thanks to the New World Order,because of reasons,because of the Reserved List,and always has been]#_qualifier#. Though sticking it on [_cardlinkName:#cardAlone#][_surface:#_cardtype.lowercase.a#,#cardCategory.lowercase.a#,#_cotdHtmlCardLink.a# variant]#_surface# [_result:certainly helps,certainly helps,doesn't help,really changes things,makes no sense,makes a certain kind of sense,certainly might make you resonsider it,is a clumsy approach to fixing this, is a feeble way to remedy this]#_result#."
+
 cotdAuraOrEquipmentDescription:
   - "Long ago, [_adj:inventive,resourceful,desparate,clever,crafty,beleagured]#_adj.a# #creatureTypes# decided to [_adhere:stick,slap,affix]#_adhere# some #massNoun.hyphenate#-infused [_equipmentPart:#bodypart# armor,blades,spikes,bracers,pauldrons,gauntlets,rivets,ribbons,pinstripes,toothpicks,pipe cleaners,pom poms,rhinestones]#_equipmentPart# onto what appears to be [_surface:#itemNoun#,pair of #itemNoun.s#]#_surface.a#. Today, almost every #characterClass# [_worn:has donned,has worn,wields,sports]#_worn# [_theArmor:one of these,a pair]#_theArmor# to #creatureActionVerb# as they [_verb:dash,rumble,rush,roll,charge,barrel,plow]#_verb# [_intoBattle:into battle,into the fray,into combat,into the red zone,through the breach,into the kill zone,into the night,#sweepSpellMove#]#_intoBattle#."
+
+cotdLegendaryCreatureDescription:
+  - "[_legendImgUrl:#_cardImgUrl1#][_legendSubtype:#_cardSubtype1#][# of the .cardSearchByText#]#_legendName# has [_agenda:a plan,an agenda,a bright idea,a mission in life,a puzzle to solve,a philosophical question to ponder,homework to do,a survey to conduct,dispute to settle,a bee in their bonnet]#_agenda#. They're going to [_solve:decide,answer the question of,find out,finally determine,ask #planeswalkerFirstName#]#_solve# #cotdWordPairPonderable#.[_cardImgUrl1:#_legendImgUrl#]"
 
 cotdCreatureTypeDescription:
  - "Only on #plane# would people see this #adjImpressive# #_creatureType# and nickname it [_nickname:The #adj.capitalizeAll.hyphenate# #characterClass.capitalizeAll#,#planeswalkerFirstName#'s #characterClass.capitalizeAll#]“#_nickname#”."

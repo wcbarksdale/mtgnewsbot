@@ -85,12 +85,35 @@ function getSomeCardTypeOrSubtype(types, subtypes) {
   return randomElement(typesAndSubtypes);
 }
 
-function randomLegendaryCreature() {
+async function cardSearchTwoParter(separator, params) {
+  const query = { 
+    q: `name: " ${separator} "`
+  };
+
+  // optional string prefix to remove before parsing
+  var ignorePrefix = params[1];
+
+  const firstPart = new CardSearchResultField('NameFirstPart', card => {
+    var name = card.name.replace(new RegExp(`^${ignorePrefix}`), '').trim();
+    return name.split(` ${separator} `)[0].trim();
+  });
+
+  const secondPart = new CardSearchResultField('NameSecondPart', card => {
+    return card.name.split(` ${separator} `)[1].trim();
+  });
+
+  const additionalFields = [];
+  additionalFields.push(firstPart, secondPart);
+
+  return cardFinderSearch(query, params, additionalFields);
+}
+
+async function randomLegendaryCreature() {
   var query = {
     q: 't:"legendary" t:"creature"'
   };
 
-  const familiarName = new CardSearchResultField('familiarName', card => {
+  const familiarName = new CardSearchResultField('FamiliarName', card => {
     const name = card.name;
 
     var firstName = name.split(',')[0];
@@ -195,7 +218,8 @@ async function cardFinderSearch(query, params, addtionalFields) {
     try {      
       resultData = await searchCardFinder(query);
       try {
-        result = JSON.parse(resultData);     
+        result = JSON.parse(resultData);
+
         logger.log('Retrieved ' + result.length + ' cards.');
 
         if (result.length < queryLimit) {          
@@ -286,5 +310,6 @@ module.exports = {
   cardSearchBySet,
   cardSearchByText,
   cardSearchByType,
+  cardSearchTwoParter,
   randomLegendaryCreature
 };
