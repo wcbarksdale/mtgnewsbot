@@ -24,6 +24,23 @@ const colorNames = {
   URG: 'RUG'
 };
 
+const TRACERY_LABEL_PREFIX = '_card';
+
+class CardSearchResultField {
+  constructor(traceryLabel, parser) {
+    this.traceryLabel = traceryLabel;
+    this.parser = parser;
+  }
+
+  parseField(card) {
+    return this.parser(card);
+  }
+
+  getLabel() {
+    return TRACERY_LABEL_PREFIX + this.traceryLabel.charAt(0).toUpperCase() + this.traceryLabel.slice(1);
+  }
+}
+
 function getColorDescription(colorIdentity) {
   if (!colorIdentity) {
     return 'colorless';
@@ -63,10 +80,41 @@ function getSomeColor(colorIdentity) {
   return colorNames[randomElement(colorIdentity)];
 }
 
-
 function getSomeCardTypeOrSubtype(types, subtypes) {
   const typesAndSubtypes = types.concat(subtypes ? subtypes : []);
   return randomElement(typesAndSubtypes);
+}
+
+function randomLegendaryCreature() {
+  var query = {
+    q: 't:"legendary" t:"creature"'
+  };
+
+  const familiarName = new CardSearchResultField('familiarName', card => {
+    const name = card.name;
+
+    var firstName = name.split(',')[0];
+    if (firstName.length < name.length) {
+      return firstName;
+    }
+
+    firstName = name.split(' of the ')[0];
+    if (firstName.length < name.length) {
+      return firstName;
+    }
+
+    firstName = name.split(' of ')[0];
+    if (firstName.length < name.length) {
+      return firstName;
+    }
+
+    return name.split(' the ')[0];
+  });
+
+  const additionalFields = [];
+  additionalFields.push(familiarName);
+
+  return cardFinderSearch(query, undefined, additionalFields);  
 }
 
 async function randomCards(limit) {
@@ -126,12 +174,12 @@ function traceryEscape(string) {
   return string.replace(/:/g,'#colon#').replace(/,/g,"#comma#");
 }
 
-async function cardFinderSearch(query, params) {
+async function cardFinderSearch(query, params, addtionalFields) {
   let resultData;
   let result;
   let queryLimit = 1;
 
-  if (params.length > 0) {
+  if (params && params.length > 0) {
     if (parseInt(params[0]) > 0) {
       queryLimit = parseInt(params[0]);
     } else {
@@ -198,21 +246,31 @@ async function cardFinderSearch(query, params) {
         name += ' Avatar';
       }
 
+      const prefix = TRACERY_LABEL_PREFIX;
+
       finalResult = finalResult.concat(
-        `[_cardName${i}:${name}]`,
-        `[_cardSet${i}:${set}]`,
-        `[_cardRarity${i}:${rarity}]`,      
-        `[_cardType${i}:${type}]`,     
-        `[_cardSubtype${i}:${subtype}]`,
-        `[_cardFullType${i}:${fullType}]`,
-        `[_cardFullSubtype${i}:${fullSubtype}]`,
-        `[_cardSomeTypeOrSubtype${i}:${someTypeOrSubtype}]`,                              
-        `[_cardImgUrl${i}:${imgUrl}]`,
-        `[_cardColor${i}:${color}]`,
-        `[_cardDescriptive${i}:${colorDescriptive}]`,
-        `[_cardColorClass${i}:${colorClass}]`,
-        `[_cardSomeColor${i}:${someColor}]`      
+        `[${prefix}Name${i}:${name}]`,
+        `[${prefix}Set${i}:${set}]`,
+        `[${prefix}Rarity${i}:${rarity}]`,      
+        `[${prefix}Type${i}:${type}]`,     
+        `[${prefix}Subtype${i}:${subtype}]`,
+        `[${prefix}FullType${i}:${fullType}]`,
+        `[${prefix}FullSubtype${i}:${fullSubtype}]`,
+        `[${prefix}SomeTypeOrSubtype${i}:${someTypeOrSubtype}]`,                              
+        `[${prefix}ImgUrl${i}:${imgUrl}]`,
+        `[${prefix}Color${i}:${color}]`,
+        `[${prefix}Descriptive${i}:${colorDescriptive}]`,
+        `[${prefix}ColorClass${i}:${colorClass}]`,
+        `[${prefix}SomeColor${i}:${someColor}]`      
       );
+
+      if (addtionalFields) {
+        addtionalFields.forEach(field => {
+          const label = `${field.getLabel()}${i}`;
+          const value = field.parseField(card);
+          finalResult = finalResult.concat(`[${label}:${value}]`);
+        });
+      }
     }
 
     logger.log('Constructed cardsearch result: ' + finalResult);
@@ -227,5 +285,6 @@ async function cardFinderSearch(query, params) {
 module.exports = {
   cardSearchBySet,
   cardSearchByText,
-  cardSearchByType
+  cardSearchByType,
+  randomLegendaryCreature
 };
