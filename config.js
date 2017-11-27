@@ -4,11 +4,14 @@ const Logger = require('./src/lib/util/logger');
 
 const CONFIG_OVERRIDE_PATH = './config-override.json';
 const DEFAULT_GRAMMAR_PATH = './src/data/grammar';
-const TWEET_LENGTH = 140;
+const TWEET_LENGTH = 280;
 const TEMPFILE_PATH = '/tmp';
 
 let config = {
   defaultGrammarPath:  DEFAULT_GRAMMAR_PATH,
+  debugOptions: {
+    deleteTempImages: true
+  },  
   loggers: { },
   logPrefs:  { cardfinder: true, html: true, svg: true },
   origin: undefined,
@@ -22,7 +25,9 @@ let config = {
   TWITTER_CONSUMER_KEY: null,
   TWITTER_CONSUMER_SECRET: null,
   TWITTER_ACCESS_TOKEN: null,
-  TWITTER_ACCESS_TOKEN_SECRET: null
+  TWITTER_ACCESS_TOKEN_SECRET: null,
+  MASTODON_API_TOKEN: null,
+  MASTODON_API_URL: null
 };
 
 const submodules = {

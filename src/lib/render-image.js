@@ -74,11 +74,11 @@ function renderImageFromHtml(html, outputPath, imageOptions) {
             msg: `Image rendered to ${outputPath}`
           });
         })
-        .then(() => fs.unlink(tempFile, (err) => {
+        .then(config.debugOptions.deleteTempImages ? () => fs.unlink(tempFile, (err) => {
           if (err) {
             reject(err);
           }
-        }))
+        }) : undefined)
         .catch(err => reject(err));
     });
   });
@@ -98,6 +98,7 @@ function cropAndWriteFile(path, imageOptions, sourceImage) {
   };
 
   const cropOptions = imageOptions.crop;
+
   const backgroundOptions = imageOptions.background;
 
 	return new Promise((resolve, reject) => {
@@ -109,21 +110,32 @@ function cropAndWriteFile(path, imageOptions, sourceImage) {
             reject(err);
           }
 
-          const logoWidth = sourceImage.bitmap.width;
-          const logoHeight =  sourceImage.bitmap.height;
-          const padding = cropOptions.padding;
+          const padding = cropOptions.padding || 0;
+          const needsMatting = sourceImage.bitmap.width + padding < cropOptions.width  || sourceImage.bitmap.height + padding < cropOptions.height;
+          const imgWidth = sourceImage.bitmap.width < cropOptions.width ? sourceImage.bitmap.width : cropOptions.width;
+          const imgHeight =  sourceImage.bitmap.height < cropOptions.height ? sourceImage.bitmap.height : cropOptions.height;
           const backgroundColor = backgroundOptions.color || 0xFFFFFFFF;
 
-          return new Jimp(logoWidth + padding, logoHeight + padding, backgroundColor, (err, background) => {
+          return new Jimp(imgWidth + padding, imgHeight + padding, backgroundColor, (err, background) => {
             if (err) {
               reject(err);
             }    
-            background.composite(image, padding/2, padding/2).contain(cropOptions.width, cropOptions.height, (err, image) => {
-              if (err) {
-                reject(err);
-              }            
-                resolve(image);
-            });
+
+            if (needsMatting) {
+              background.composite(image, padding/2, padding/2).contain(cropOptions.width, cropOptions.height, (err, image) => {
+                if (err) {
+                  reject(err);
+                }            
+                  resolve(image);
+              });
+            } else {
+              image.crop(0, 0, cropOptions.width, cropOptions.height, (err, image) => {
+                if (err) {
+                  reject(err);
+                }            
+                  resolve(image);
+              });
+            }
           });
         });
       } else {
@@ -149,14 +161,14 @@ function cropAndWriteFile(path, imageOptions, sourceImage) {
         const backgroundHeight = backgroundImage.bitmap.height;
         const padding = 8;
 
-        var logoWidth = logoImage.bitmap.width;
-        var logoHeight = logoImage.bitmap.height;
+        var imgWidth = logoImage.bitmap.width;
+        var imgHeight = logoImage.bitmap.height;
 
         const compositeCallback = (err, image) => {          
-          logoWidth = image.bitmap.width;
-          logoHeight = image.bitmap.height;
+          imgWidth = image.bitmap.width;
+          imgHeight = image.bitmap.height;
 
-          backgroundImage.composite(image, (backgroundWidth - logoWidth)/2, (backgroundHeight - logoHeight)/2, err => {
+          backgroundImage.composite(image, (backgroundWidth - imgWidth)/2, (backgroundHeight - imgHeight)/2, err => {
             if (err) {
               reject(err);
             }          
@@ -164,7 +176,7 @@ function cropAndWriteFile(path, imageOptions, sourceImage) {
           });          
         };
 
-        if (logoWidth > backgroundWidth - 2 * padding || logoHeight > backgroundHeight - 2 * padding) {
+        if (imgWidth > backgroundWidth - 2 * padding || imgHeight > backgroundHeight - 2 * padding) {
           logoImage.scaleToFit(backgroundWidth - 2 * padding, backgroundHeight - 2 * padding, compositeCallback);
         } else {
           compositeCallback(null, logoImage);

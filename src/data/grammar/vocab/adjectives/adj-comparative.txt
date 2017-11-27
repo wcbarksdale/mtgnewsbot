@@ -107,7 +107,7 @@ smoother
 more snow-covered
 more impractical
 stickier
-more stinking
+stinkier
 more sullen
 sultrier
 more superb
@@ -158,3 +158,22 @@ jauntier
 more irresponsible
 more wasteful
 zanier
+tawdrier
+more obscene
+more uncertain
+more contemptible
+beastlier
+more sublime
+more abominable
+more solemn
+more majestic
+sleazier
+more depraved
+more opulent
+more sophisticated
+more earnest
+worthier
+unworthier
+seaworthier
+less redeemable
+less useful

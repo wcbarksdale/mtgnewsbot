@@ -80,10 +80,39 @@ flavorText:
     "Only #adj.a# few are [_allowed:allowed,permitted,invited,welcome]#_allowed# within the #adj# [_place:#placeNoun#,#placeNounCanonical#]#_place# known as [_place:#minorStoryLocation#,#nonPlaneLocation#]#_place#."
   - >
     "I [_forge:forge,shape,fashion,fabricate]#_forge# my #itemNoun.s# from the #abstractNoun# of my enemies." —#npcCharacter#
-
-newFlavorText:
+  - >
+    "[_who:It,He,She]#_who# is #adjComparative# than all but the #adjSuperlative# #pluralNoun#, and #adjComparative# than all but the #adjSuperlative#."
+  - > 
+    "I am the #nounVerber#, the #sealInscriptionDescription#.\"  —[_inscription:Seal inscription,#itemNoun.capitalize# inscription]#_inscription#
   - >
     "The #creatureTypeOrCharacterClass.s# of [_place:#minorStoryLocation#,#nonPlaneLocation#]#_place# treat each #itemNoun# with #emotion# for the #creatureTypeOrCharacterClass# it will become."
+  - >
+    "It is #adjComparative# than all but the #adjSuperlative# #pluralNoun#, and #adjComparative# than all but the #adjSuperlative#."
+
+sealInscriptionDescriptionWhatIam:
+- "#itemNoun#"
+- "#adj# #itemNoun#"
+- "#characterClass#"
+- "#characterClass#"
+- "#emotion#"
+- "#abstractNoun#"
+- "#massNoun#"
+
+sealInscriptionDescriptionWhatIdo:
+- "#verbTransitive.s# the #adj#"
+- "#verbTransitive.s# the #pluralNoun#"
+- "#verbTransitive.s# all #pluralNoun#"
+- "#verbTransitive.s# all #abstractNounMassNounOrEmotion#"
+- "#verbTransitive.s# the #massNoun#"
+- "#verbTransitive.s# the final #itemNoun#"
+- "#verbTransitive.s# the [_adj:,#adj# ]#_adj##characterClass.s#"
+- "will not #verbIntransitive#"
+
+sealInscriptionDescription:
+  - "#sealInscriptionDescriptionWhatIam# that #sealInscriptionDescriptionWhatIdo#"
+  - "#sealInscriptionDescriptionWhatIam# that #sealInscriptionDescriptionWhatIdo#"
+  - "#sealInscriptionDescriptionWhatIam# that #sealInscriptionDescriptionWhatIdo#"
+  - "#sealInscriptionDescriptionWhatIam# that #sealInscriptionDescriptionWhatIdo#"
 
 placeOrPeopleVerbPluralAgreement:
 - "[_placeOrPeople:#placeNoun#][_verbs:#_verb.s#]"

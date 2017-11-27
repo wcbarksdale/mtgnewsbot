@@ -24,6 +24,10 @@ const colorNames = {
   URG: 'RUG'
 };
 
+const escapedParams = {
+  '_COMMA_': ','
+};
+
 const TRACERY_LABEL_PREFIX = '_card';
 
 class CardSearchResultField {
@@ -106,20 +110,27 @@ function getSomeCardTypeOrSubtype(types, subtypes) {
 }
 
 async function cardSearchTwoParter(separator, params) {
+  const searchTerm = separator.match(/^".*"$/) ? separator : `"? ${separator} "`;
+  const splitter = separator.match(/^".*"$/) && separator.match(/[^?!"|]+/) ? separator.match(/[^?!"|]+/)[0] : ` ${separator} `; 
+
   const query = { 
-    q: `name:"? ${separator} "`
+    q: `name:${searchTerm}`
   };
 
   // optional string prefix to remove before parsing
   var ignorePrefix = params[1];
 
+  Object.keys(escapedParams).forEach(escapeCode => {
+    ignorePrefix = ignorePrefix.replace(new RegExp(escapeCode, 'g'), escapedParams[escapeCode]);
+  });
+
   const firstPart = new CardSearchResultField('NameFirstPart', card => {
     var name = card.name.replace(new RegExp(`^${ignorePrefix}`), '').trim();
-    return traceryEscape(name.split(` ${separator} `)[0]).trim();
+    return traceryEscape(name.split(splitter)[0]).trim();
   });
 
   const secondPart = new CardSearchResultField('NameSecondPart', card => {
-    let secondPart = card.name.split(` ${separator} `)[1];
+    let secondPart = card.name.split(splitter)[1];
     return traceryEscape(secondPart ? secondPart : '').trim();
   });
 
@@ -182,6 +193,20 @@ async function cardSearchByType(s, params) {
     q: 't:' + s
   };
   return cardFinderSearch(query, params);
+}
+
+async function cardSearchOneWordName(undefined, params) {
+  const cardTypes = params.slice(1);
+  const query = {
+    q: 'not name:"? "'
+  };
+  if (cardTypes.length > 0) {
+    query.q += cardTypes.reduce((list, type) => {
+      list = list.length === 0 ? ' ' : list + ' OR ';
+      return list += 't: ' + type;
+    }, '');
+  }
+  return cardFinderSearch(query, params);  
 }
 
 async function cardSearchCustomQuery(s, params) {
@@ -327,6 +352,7 @@ async function cardFinderSearch(query, params, additionalFields) {
       const colorDescriptive = getColorFullDescription(card.colorIdentity);
       const colorClass = getColorCategory(card.colorIdentity);    
       const someColor = getSomeColor(card.colorIdentity);
+      const nameLastWord = card.name.split(" ").pop();
 
       if (card.layout === 'token') {
         name += ' Token';
@@ -351,7 +377,8 @@ async function cardFinderSearch(query, params, additionalFields) {
         `[${prefix}Color${i}:${color}]`,
         `[${prefix}Descriptive${i}:${colorDescriptive}]`,
         `[${prefix}ColorClass${i}:${colorClass}]`,
-        `[${prefix}SomeColor${i}:${someColor}]`      
+        `[${prefix}SomeColor${i}:${someColor}]`,
+        `[${prefix}NameLastWord${i}:${nameLastWord}]`      
       );
 
       if (additionalFields) {
@@ -373,7 +400,6 @@ async function cardFinderSearch(query, params, additionalFields) {
     logger.warn(e);
     return 'SEARCH_FAILED_NO_RESULT';
   }
- 
 }
 
 module.exports = {
@@ -382,6 +408,7 @@ module.exports = {
   cardSearchByText,
   cardSearchByType,  
   cardSearchTwoParter,
+  cardSearchOneWordName,
   cardSearchCustomQuery,
   randomCard:   () => cardSearchRandom(undefined, 1),
   randomCards:  cardSearchRandom,

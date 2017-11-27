@@ -1,0 +1,232 @@
+---
+# VSL, Modern Cube, Commander 1v1, Treasure Chest update, MOCS 2018, and IXALAN!
+
+# Need some [MondayMotivation]? Nothing a good [Captain] with [Menace] can't handle!
+# Ixalan comes to #MTGO in 1 week! #MTGXLN
+# {cardimg}
+
+# It's [{talk|verb} like a {creatureTypeOrCharacterClass} day! | World#CreatureTypes(or game concept, charclass,etc.)Day!
+# Or for the #creatureTypeOrCharacterClass# of #location#...{EVERYDAY|YESTERDAY|...}!
+
+#Which card with the word "[thought]" in its name is your favorite? #ThursdayThoughts#
+#Search here: http://gatherer.wizards.com  #MTGO
+
+#  this isn't your [grandpa]'s [cardCategory].
+#
+
+mtgoTwitterStyleHeadline:
+- "#theXOfYHasZ#"
+- "#cardPunEventInvitation#"
+- "#replyWithCard#"
+- "#cardOneOff#"
+
+##### theXOfYHasZ ######
+
+theXOfYHasZ:
+- |
+  [_query:t!="legendary" t!="planeswalker" (name="hour of" name|="time of" name|="day of" name|="moment of" name|="festival of" name|="dance of" name|="feast of" name|="march of" name|="reign of" name|="rise of" name|="wrath of" name|="rain of" name|="rite of" name|="ritual of" name|="test of" name|="trial of" name|="approach of" name|="era of" name|="dawn of" name|="night of" name|="spring of" name|="carnival of" name|="lord of" name|="voice of" name|="sire of" name|="avatar of" name|="bane of" name|="bearer of"  name|="brink of" name|="call of" name|="champion of" name|="chancellor of" name|="chorus of" name|="eater of" name|="hand of" name|="harbinger of" name|="magus of"  name|="master of" name|="order of" name|="season of " name|="terror of ")][#_query.cardSearchCustomQuery(1)#][_cardname:#_cardName1#]
+  The #_cardname# [_here:is here,has arrived,has come,is finally here]#_here#!
+  {newline}{newline}[_announcement:#onlineEventAnnouncement1#!,#onlineEventAnnouncement2#.]#_announcement.capitalize#
+  {newline}#imgCard#
+
+##### cardPunEventInvitation ######
+
+cardPunEventInvitation:
+- |
+  [#cardPunSetup#]
+  [_leadIn:Get ready to,]
+  #_cardPunLine1#
+  {newline}{newline}[_cardPunLine2:Get ready to #_verbPun#—#onlineEventAnnouncement1#,#_verbPun# and #onlineEventAnnouncement2#]#_cardPunLine2.capitalize#!
+  {newline}#imgCard#  
+
+cardPunSetup:
+- |
+  [#cardTextVerbSearch#][_verbPun:#_cardverb# your opponents,#_cardverb# your enemies,#_cardverb# the competition,#_cardverb# yourself]
+  [_verbPun:#_cardverb# your opponents,#_cardverb# your enemies,#_cardverb# the competition,#_cardverb# yourself]
+  [_cardPunLine1:#challengeAppeal#]
+- |
+  [separator:of the][#separator.cardSearchTwoParter(1)#][_cardname:#_cardName1#]
+  [_verbPun:#verbYourself# yourself]
+  [_beOneOf:be one of,be among,fight alongside,answer the call of,fight for,become a champion of,become #_cardNameFirstPart1.a# of,be #follower.a# of]
+  [_willYouBe:#_beOneOf# the #_cardNameSecondPart1#]
+  [_areYouOne:one of the #_cardNameSecondPart1#,a true #_cardNameFirstPart1#,#_cardNameFirstPart1.a# of the #_cardNameSecondPart1#,#_cardNameFirstPart1.a# or #characterClass.capitalize.a#, #follower.a# of the #_cardNameSecondPart1#]
+  [_cardPunLine1:Will you #_willYouBe#?,Are you #_areYouOne#?]
+
+challengeAppeal:
+- "Are you ready [_forThis:for this,to battle,to face the challenge,to spend all day on Magic Online]#_forThis#?"
+- Are you up to the task?
+- Are you as smart as you think you are?
+- Will you step up to the challenge?
+- How serious are you about winning?
+- Do you want treasure chests?
+- "So you think you can [_doThis:battle,win a tournament,#verbStrictlyIntransitive#]#_doThis#?"
+- "[_have:Have some,Do you have,Extra]#_have# [_currency:event tickets,play points,some extra cash]#_currency# to burn?"
+- "Do you have the #bodypartsInPairs# for this?"
+- "Is there #abstractNounMassNounOrEmotion# [_where:in your #bodypartsInternal#,in your #bodypartsExternal#]#_where#?"
+
+cardTextVerbSearch:
+  "[_cardverb:#cardTextVerb#][_query:text=?#_cardverb#][#_query.cardSearchCustomQuery(1)#][_cardname:#_cardName1#]"
+
+##### (online event rules) #####
+
+onlineEventTimeStart:
+- today
+- tomorrow
+- "[_next:this,next]#_next# weekend"
+- "[_next:this,next]#_next# week"
+- "[_next:,this,next]#_next# #dayOfTheWeek#"
+- "[_mins:5,15,30,60,90,#num2-99#]in #_mins# minutes"
+- "[_hours:1 hour, 2 hours, #num2-9# hours]in #_hours#"
+- "[_daysWeeks:#num2-9#,#num2-9#,#num2-99#][_daysOrWeeks:days,days,weeks]in #_daysWeeks# #_daysOrWeeks#"
+- "[_indeterminateTime:at some point in the near future,whenever we feel like it,sometime this year,soon#comma# hopefully,on a yet-to-be-determined date]#_indeterminateTime#"
+
+onlineEventFormat:
+- sealed
+- limited
+- constructed
+- "#format#"
+
+onlineEventType:
+- open
+- qualifier
+- daily
+- challenge
+- premiere
+
+onlineEvent:
+- "[_aThe:][_isAre:is][_s:]the #onlineEventFormat.capitalize# MOCS #onlineEventType.capitalize#[_event:, event]#_event#"
+- "[_aThe:a][_isAre:are][_s:s]MTGNewsbot-sponsored #onlineEventFormat.capitalize# #onlineEventType.capitalize# event"
+- "[_aThe:a][_isAre:are][_s:s]#teaserCardSet# online [_type:release,premiere]#_type# event"
+- "[_aThe:a][_isAre:are][_s:s][_set:#_cardSet1#,#cardSet#]#_set# [_back:Flashback,Throwback]#_back# [_event:draft,sealed league,standard event]#_event#"
+- "[_aThe:a][_isAre:are][_s:s]#popularFormat# Cube [_event:league,league,queue]#_event#"
+- "[_aThe:a][_isAre:are][_s:s]#alternativeConstructedFormat# online [_event:league, premiere event]#_event#"
+
+eventComeOn:
+- Don't miss it
+- Be there or be square
+- Registration is limited
+- Sign up now
+- Don't forget
+- We're serious this time
+- Most of the cards have even been tested
+- "Prepare to be #verbTransitivePastTense#"
+- "[_cardType:creature][#_cardType.cardSearchByType(1)#]All participants receive a free #_cardName1# avatar"
+# - "[_query:name!=\"? \"][#_query.cardSearchCustomQuery(1)#]The first #num2-9##num1-99# players to type [_code:caw,#planeswalkerFirstName#,#_cardName1#]#_code.allCaps# will [_prize:receive a promo #randomCardAlone#,receive a free treasure chest,receive a free draft set of #randomCardSet#, be entered manually]#_prize#"
+
+onlineEventAnnouncement1: "[_starting:starting,beginning,launching]#onlineEvent.capitalize##_s# #_isAre# starting #onlineEventTimeStart#. #eventComeOn#"
+onlineEventAnnouncement2: "[_starting:starting,beginning,launching]join [_event:#onlineEvent#]#_aThe# #_event#, #_starting# #onlineEventTimeStart#"
+
+####### replyWithCard ######
+
+replyWithCard:
+- |
+  [#replyWithCardText#]
+  #replyWithCardTextPart1#
+  {newline}{newline}
+  #replyWithCardTextPart2#
+  {newline}#imgCard#
+
+replyWithCardText:
+- >
+ [#replyCardCategory#]
+ [_whatYouMightKnow:the drill,what to do,what that means][_whatYouKnow:#_whatYouMightKnow#]
+ [replyWithCardTextPart1:It's #hashtagDay##comma# you know #_whatYouKnow#!]
+ [replyWithCardTextPart2:...if you don't know #_whatYouKnow##comma# #replyBackWith# #replyWithCardDescribeCard#.]
+- >
+  [#replyCardCategory#]
+  [_hour:#_replyCardShortDescription#,#_cardname#]
+  [replyWithCardTextPart1:It's #hashtagDay##comma# and you know what time it is...]
+  [replyWithCardTextPart2:It's time for you to #replyBackWith# #replyWithCardDescribeCard#!,It's #_hour.noPunctuation.hyphenate# o'clock! #replyBackWith.capitalize# #replyWithCardDescribeCard#.]
+
+replyWithCardDescribeCard:
+- "your favorite #_replyCardDescription#"
+- "your all-time favorite #_replyCardDescription#"
+- "your mom's favorite #_replyCardDescription#"
+- "your go-to #_replyCardDescription#"
+- "your least favorite #_replyCardDescription#"
+- "a completely random #_replyCardDescription#"
+- "the first #_replyCardDescription# you can think of (beside #_cardname#!)"
+- "your [_pickFor:pick for,vote for,choice for, opinion of]#_pickFor# the most powerful #_replyCardDescription#"
+- "#_replyCardDescription.a# that you think nobody else will think of"
+- "#_replyCardDescription.a# that featured in a bad beat story of yours"
+- "the most embarrassing #_replyCardDescription# you've ever played"
+- "the worst #_replyCardDescription# you've ever lost to"
+
+replyBackWith:
+- reply back with
+- reply with
+- respond with
+- share
+- show us
+
+replyCardCategory: 
+- "[#_replyCardCategory#][_cardname:#_cardName1#]"
+- "[#_replyCardCategory#][_cardname:#_cardName1#]"
+- "[#_replyCardCategory#][_cardname:#_cardName1#][_replyCardDescription:#_cardColor1# #_replyCardDescription#]"
+
+_replyCardCategory: 
+ - "[_keyword:#keyword#][_query:#_keyword#][#_query.cardSearchByText#][_replyCardShortDescription:#_keyword.lowercase#][_replyCardDescription:card with #_keyword.lowercase#]"
+ - "[#searchableCardCategory#][#_cardCategorySearchTerm.cardSearchByText#][_replyCardShortDescription:#_cardCategory#][_replyCardDescription:#_cardCategory#]"
+ - "[#searchableCardCategoryCustomQuery#][#_customQuery.cardSearchCustomQuery#][_replyCardShortDescription:#_cardCategory#][_replyCardDescription:#_cardCategory#]"
+ - "[#creatureSearch#][_replyCardShortDescription:#_cardSubtype1#][_replyCardDescription:#_cardSubtype1# from #_cardSet1#]"
+ - "[#CARDFINDER.randomCard#][_replyCardShortDescription:#_cardType1.lowercase#,#_cardSet1#][_replyCardDescription:#_cardType1.lowercase# from #_cardSet1#]"
+
+cardOneOff:
+- |
+  [#creatureSearch#][_creatureType:#_cardSubtype1#][_cardname:#_cardName1#]
+  [_verb:talk,#verbIntransitive#]
+  [_day:#_verb.noPunctuation.capitalizeAll# Like #_creatureType.a.capitalizeAll# Day]
+  [_secondDay:EVERY DAY,EVERY DAY,#CONTENT.dayOfWeek.capitalize#,#CONTENT.dayOfWeek.capitalize#,the best day of the week,#occasion.capitalizeAll#]  
+  It's {hashtag}#_day.noSpaces#!
+  {newline}
+  Or for the #_creatureType.capitalize.s# of #_cardSet1#...#_secondDay#!
+  {newline}{newline}
+  #imgCard#
+- |
+  [#creatureSearch#][_cardname:#_cardName1#]
+  [_birthdayWishes:, Wish them well., Remember to sign the card., Maybe get them a present., How special!, Did you bring a gift?, Maybe we can all chip in for #itemNoun.a#.]
+  #CONTENT.dayOfWeek.capitalize# is #_cardname#'s [_day:favorite day.,second-favorite day.,day off.,birthday!#_birthdayWishes#,day to run the twitter feed.]#_day#
+  {newline}
+  #hashtagDayMotivation#
+  {newline}{newline}
+  #imgCard#
+- |
+  [_customQuery:t=artifact t|=enchantment t!=creature][#_customQuery.cardSearchCustomQuery#][_cardname:#_cardName1#]
+  [_noun: #abstractNounMassNounOrEmotion#]
+  [_verbers:Lovers,Lovers,#verbTransitiveGerund#]
+  [_its:,It's ]
+  [_daySubject:#_cardNameLastWord1.capitalize#]
+  [_day:{hashtag}#_daySubject##_verbers.capitalize#Day,{hashtag}#_daySubject##CONTENT.dayOfWeek.capitalize#,{hashtag}National#_daySubject#Day]
+  [_nounIsWhat:#_noun# knows no bounds.,#_noun# is in the air.,can you feel the #_noun#?,it's the #_noun# that counts.,remember to stop and smell the #_noun#.]
+  [_itsDayText:When #_day# and #hashtagDayMotivation# fall on the same day#comma# #_nounIsWhat#,#_its##_day#. #_nounIsWhat.capitalize# #hashtagDayMotivation#]#_itsDayText#
+  {newline}{newline}
+  #imgCard#  
+- |
+  [_customQuery:t=legendary t=creature][#cotdCustomSearch#][_legendName:#_cardFamiliarName1#][_cardname:#_cardName1#]
+  [_dayOfWeek:#CONTENT.dayOfWeek.capitalize#]
+  [_format:#format#]
+  [_gameDayPrefix:#gameConcept#,#randomCardSet#,#cardState#,#_format#]
+  [_day:#singularNoun##_dayOfWeek#,#adj##_dayOfWeek#,#_gameDayPrefix.capitalizeAll##_dayOfWeek#]
+  [_use:use,use,use,play,put,include]
+  [_deck:#deck#,#deckVariation#,#_format#]  
+  {hashtag}#_day.capitalizeAll.noPunctuation.noSpaces# is #_legendName#'s favorite day[_qualifier:,,#comma# we think,#comma# more or less,#comma# we've been told,according to #person#,starting now]!
+  {newline}{newline}
+  [_anyoneUse:Anyone #_use#,Does anyone #_use#,Who #_use#s,Who likes to #_use#,Know anyone who #_use#s,Has anyone ever played]#_anyoneUse# #_cardname# in their #_deck# deck?
+  #imgCard#
+- |
+  [_customQuery:t=legendary t=creature][#cotdCustomSearch#][_legendName:#_cardName1#]
+  [#creatureSearch#][_cardname:#_cardName1#]
+  [_legendWants:reminds you,wants you,says,invites you]
+  [_whatToDo:Don't,Never,Always,Remember to,#_legendName# #_legendWants# to]
+  [_verbSuggestion:underestimate,consider,reevaluate,root for,ignore,pay attention to,forget,remember,give a shout out to]
+  [_guys:guys,guys,cards,critters,creatures]
+  [_who:the little #_guys#,the #cardOrEffectAdj# #_guys#,the #adj# #_guys#,the newest cards,your old favorites,the #_cardSubtype1.s#]
+  #_whatToDo.capitalize# [_verb:#verbTransitive#,#_verbSuggestion#]#_verb# #_who#. 
+  #hashtagDayMotivation#
+  {newline}{newline}
+  #imgCard#  
+
+hashtagDay: "{hashtag}#CONTENT.dayOfWeekOccasion.capitalizeAll.noPunctuation.noSpaces##CONTENT.dayOfWeek.capitalize#"
+hashtagDayMotivation: "{hashtag}#CONTENT.dayOfWeekMotivation.capitalizeAll.noPunctuation.noSpaces##CONTENT.dayOfWeek.capitalize#"
+
+creatureSearch: "[_customQuery:t=creature][#_customQuery.cardSearchCustomQuery#]"
